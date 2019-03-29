@@ -31,4 +31,34 @@ clusters identified from 1 to K.
 For the leaderboard evaluation set K to 10. Submit the best results. The leaderboard will report the V-measure on 50% of 
 sampled dataset. 
 
-Note: format.txt shows an example file containing 10,000 rows with random class assignments from 1 to 10.  
+Note: format.txt shows an example file containing 10,000 rows with random class assignments from 1 to 10. 
+
+The training data is a NULL FILE.
+
+The file test.dat contains the data you use for clustering.
+
+The format example is given by format.txt.
+
+Iris Test Set
+--------------
+This is the famous Iris dataset and serves as an easy benchmark for evaluation. 
+
+Test my K-Means Algorithm on this easy dataset with 4 features
+
+   1. sepal length in cm
+   2. sepal width in cm
+   3. petal length in cm
+   4. petal width in cm
+
+and 150 instances. 
+
+Essentially assign the 150 instances in the test file to 3 cluster ids given by 1, 2 or 3. 
+The leaderboard will output the V-measure and this benchmark can be used as an easy step for the main project. 
+
+Note: 
+
+The training data is a NULL FILE.
+
+The file iris-data.dat contains the data you use for clustering.
+
+The format example is given by iris-format.txt.
