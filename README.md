@@ -1,8 +1,17 @@
 # image-clustering
 
+Overview and Goals:
+-------------------
+The objectives are the following: 
+
+Implement the K-Means Algorithm
+Deal with Image data (processed and stored in vector format)
+Think about Best Metrics for Evaluating Clustering Solutions
+
+-----------------------------------------------------------------------------------------------------------------------------
 
 Detailed Description:
-
+---------------------
 * There are 2 leaderbooard submissions and this is the main assignment. 
 * HW3(CS484 - Spring 2019)-Iris is the other associated assignment with an easier dataset where K-Means can be tested 
 * quickly.  
