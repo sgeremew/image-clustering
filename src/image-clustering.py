@@ -2,6 +2,10 @@ import pandas as pd
 import numpy as np
 import random
 
+K = 3	# used for the iris-test.dat dataset
+# K = 10	# used for the image clustering dataset
+
+
 # Image Clustering
 # Samuel Geremew
 
@@ -17,11 +21,15 @@ def import_data(file):
 	data = pd.read_csv(file,header=None)
 	return data
 
-# # seed: random number seed (int)
-# # Parameters:	data: dataset of points (DataFrame)
-# # 				seed: for our random number generator
-# # Returns:	centroids: array of centroids (numpy.ndarray)
-# def find_centroids(data, seed=3):
+# seed: random number seed (int)
+# Parameters:	data: dataset of points (DataFrame)
+# 				seed: for our random number generator
+# Returns:	centroids: array of centroids (numpy.ndarray)
+def find_centroids(data, seed=3):
+	range_ = np.random.RandomState(seed)
+    i = range_.permutation(data.shape[0])[:K]
+    centroids = X[i]
+    return centroids
 
 
 # # pairwise_minimums():	finds the minimum distance of a point to a set of points
@@ -44,7 +52,7 @@ def import_data(file):
 def main():
 	file = "../iris-test.dat"
 	data = import_data(file)
-	
+
 	# print(data)
 
 main()
