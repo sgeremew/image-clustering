@@ -32,6 +32,26 @@ def find_centroids(data):
 	centroids = data.iloc[:K]
 	return centroids
 
+def best_centroids(runs,data):
+	
+	clist = []
+	scores = []
+
+	for i in range(runs):
+		c = find_centroids(data)
+		clist.append(c)
+
+	dist = 0
+	for c in clist:
+		dist += euclidean_dist(c.iloc[0],c.iloc[1])
+		dist += euclidean_dist(c.iloc[1],c.iloc[2])
+		dist += euclidean_dist(c.iloc[2],c.iloc[0])
+		scores.append(dist)
+
+	index = np.argmax(scores)
+
+	return clist[index]
+
 
 # euclidean_dist():	calculates the euclidean distance between two points
 # Parameters:	p and q: are both data points (Series)
@@ -81,8 +101,14 @@ def clusters(data, k):
 def main():
 	file = "../iris-test.dat"
 	data = import_data(file)
-	print(find_centroids(data))
-	print(pairwise_minimums(data, find_centroids(data)))
+
+
+
+
+
+	# best_centroids(3,data)
+	# print(find_centroids(data))
+	# print(pairwise_minimums(data, find_centroids(data)))
 
 	# find_centroids(data)
 
