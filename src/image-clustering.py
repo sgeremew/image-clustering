@@ -50,8 +50,7 @@ def best_centroids(runs,data):
 
 	index = np.argmax(scores)
 
-	print(clist[0])
-
+	print(f'Best Centroids:\n{clist[index]}')
 	return clist[index]
 
 
@@ -92,50 +91,18 @@ def pairwise_minimums(data, centroids):
 
 def mean_of_points(data,labels):
 
-	arr = data.to_numpy()
-	# for i in range(len(labels)):
-	for i in range(K):
-		centroids = np.array(arr[labels == (i+1)].mean(0))
-	# centroids = np.array([data[labels == (i+1)].mean(0) \
- #                            for i in range(K)])
-	return centroids
-
-# clusters():	uses the K-Means clustering algorithm to identify clusters in 
-#				the data set
-# Parameters:	data: data set of points (DataFrame)
-# 				k: number of clusters (int)
-# Returns:	array of labels (numpy.ndarray) and an array of centroids 
-# 			(numpy.ndarray)
-# def clusters(data, k):
-
-# 	while True:
-#         # 2a. Assign labels based on closest center
-#         centroids = best_centroids(3,data)
-#         labels = pairwise_minimums(data, centroids)
-        
-#         # 2b. Find new centers from means of points
-#         new_centers = np.array([data[labels == (i-1)].mean(0)
-#                                 for i in range(K)])
-        
-#         # 2c. Check for convergence
-#         if np.all(centers == new_centers):
-#             break
-#         centroids = new_centers
-#     return centroids, labels
-
-# 	return None
-
-
-def main():
-	file = "../iris-test.dat"
-	data = import_data(file)
-
-	# clusters(data, K)
-	centers = best_centroids(3,data)
-	labels = pairwise_minimums(data, centers)
+	# arr = data.to_numpy()
+	# # for i in range(len(labels)):
+	# for i in range(K):
+	# 	centroids = np.array(arr[labels == (i+1)].mean(0))
+	# # centroids = np.array([data[labels == (i+1)].mean(0) \
+ # #                            for i in range(K)])
+ # clusters(data, K)
+	# centers = best_centroids(3,data)
+	# labels = pairwise_minimums(data, centers)
 	# mean_of_points(data,labels)
 	# print(labels)
-	a = data.to_numpy()
+	data = data.to_numpy()
 
 	new_centers = []
 	labelx = []
@@ -143,38 +110,60 @@ def main():
 	for i in range(K):
 		for j in range(len(labels)):
 			if labels[j] == (i+1):
-				labelx.append(a[j])
+				labelx.append(data[j])
 				# print(f'Index: {j}, Label: {labels[j]}')
-		print("NEXT---------")
+		# print("NEXT---------")
 			
 		arr = np.asarray(labelx)		
 		# print(arr)
-		print(arr.mean(0))
+		# print(arr.mean(0))
 		mean = arr.mean(0)
 		# np.append(arr=new_centers,values=mean,axis=0)
 
 		new_centers.append(mean)
 		# print(f'Iteration {i}: {new_centers}')
-	# new_centers = np.asarray(new_centers)
-	print(f'New Centers: {new_centers}')
-	d = pd.DataFrame(data=new_centers)
-	print(type(d))
-	print(d)
-		# new_centers.append(np.asarray(labelx).mean(0))
+	# print(f'New Centers: {new_centers}')
+	recomputed = pd.DataFrame(data=new_centers)
+	print(f'Recomputed:\n{recomputed}')
+	# print(type(recomputed))
+	# print(recomputed)
+	return recomputed
+
+# clusters():	uses the K-Means clustering algorithm to identify clusters in 
+# 				the data set
+# Parameters:	data: data set of points (DataFrame)
+# 				k: number of clusters (int)
+# Returns:	array of labels (numpy.ndarray) and an array of centroids 
+# 			(numpy.ndarray)
+def clusters(data, k):
+
+	# 2a. Assign labels based on closest center
+	centroids = best_centroids(3,data)
+
+	while True:
+		labels = pairwise_minimums(data, centroids)
+
+		# 2b. Find new centers from means of points
+		new_centers = mean_of_points(data, labels)
+
+		# 2c. Check for convergence
+		if (centroids.equals(new_centers)):
+		    break
+		centroids = new_centers
+	# return centroids, labels
+	return labels
 
 
-	# best_centroids(3,data)
-	# print(find_centroids(data))
+def main():
+	file = "../iris-test.dat"
+	data = import_data(file)
 
-	# find_centroids(data)
+	# print(clusters(data,K))
 
-	# print(find_centroids(data))
-	# print(data)
-	# print(type(data))
-	# print(euclidean_dist(data.iloc[0],data.iloc[1]))
-	# a = data.iloc[0][0]
-	# print(a)
-	# print(a.iloc[0,1])
+
+	labels = clusters(data,K)
+
+	
 
 main()
 
