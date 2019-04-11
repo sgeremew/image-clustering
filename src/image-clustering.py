@@ -5,8 +5,8 @@ import math
 from sklearn.utils import shuffle
 
 
-K = 3	# used for the iris-test.dat data set
-# K = 10	# used for the image clustering data set
+# K = 3	# used for the iris-test.dat data set
+K = 10	# used for the image clustering data set
 
 
 # Image Clustering
@@ -50,7 +50,7 @@ def best_centroids(runs,data):
 
 	index = np.argmax(scores)
 
-	print(f'Best Centroids:\n{clist[index]}')
+	# print(f'Best Centroids:\n{clist[index]}')
 	return clist[index]
 
 
@@ -124,7 +124,7 @@ def mean_of_points(data,labels):
 		# print(f'Iteration {i}: {new_centers}')
 	# print(f'New Centers: {new_centers}')
 	recomputed = pd.DataFrame(data=new_centers)
-	print(f'Recomputed:\n{recomputed}')
+	# print(f'Recomputed:\n{recomputed}')
 	# print(type(recomputed))
 	# print(recomputed)
 	return recomputed
@@ -137,16 +137,16 @@ def mean_of_points(data,labels):
 # 			(numpy.ndarray)
 def clusters(data, k):
 
-	# 2a. Assign labels based on closest center
+	# Assign labels based on closest center
 	centroids = best_centroids(3,data)
 
 	while True:
 		labels = pairwise_minimums(data, centroids)
 
-		# 2b. Find new centers from means of points
+		# Find new centers from means of points
 		new_centers = mean_of_points(data, labels)
 
-		# 2c. Check for convergence
+		# Check for convergence
 		if (centroids.equals(new_centers)):
 		    break
 		centroids = new_centers
@@ -155,7 +155,8 @@ def clusters(data, k):
 
 
 def main():
-	file = "../iris-test.dat"
+	# file = "../iris-test.dat"
+	file = "../test.dat"
 	data = import_data(file)
 
 	# print(clusters(data,K))
@@ -163,7 +164,14 @@ def main():
 
 	labels = clusters(data,K)
 
-	
+	print(type(labels))
+
+	with open('output.txt', 'w') as f:
+		for label in labels:
+			f.write("%s\n" % label)
+	f.close()
+
+
 
 main()
 
