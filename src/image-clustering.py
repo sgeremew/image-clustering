@@ -21,54 +21,62 @@ K = 3	# used for the iris-test.dat data set
 def import_data(file):
 	# Since features do not have labels we set header=None so that instead we store 
 	# the index as the attribute names
-	data = pd.read_csv(file,header=None)
+	data = pd.read_csv(file,sep=' ',header=None)
 	return data
 
 # find_centroids():	randomly selects centroids from the give data set
 # Parameters:	data: data set of points (DataFrame)
 # Returns:	centroids: array of centroids (DataFrame)
 def find_centroids(data):
-	# range_ = np.random.RandomState(seed)
 	data = shuffle(data)
-	# i = data.iloc[:K]
 	centroids = data.iloc[:K]
 	return centroids
 
-def euclidean_dist(p,q):
 
+# euclidean_dist():	calculates the euclidean distance between two points
+# Parameters:	p and q: are both data points (Series)
+# Returns:	dist: is the euclidean distance calculated (float)
+def euclidean_dist(p,q):
 	total = 0
+
 	for i in range(len(p)):
-		num = p.iloc[i] - q.iloc[i]
+		num = p[i] - q[i]
 		num = num*num
 		total = total + num
 	dist = math.sqrt(total)
+	return dist
 
 # pairwise_minimums():	finds the minimum distance of a point to a set of points
 # Parameters:	data: data set of points (DataFrame)
 # 				centroids: array of centroids (DataFrame)
 # Returns:	minimum: the centroid that was closest to data[i,:] (numpy.ndarray)
-# def pairwise_minimums(data, centroids):
+def pairwise_minimums(data, centroids):
 
-# 	point = data.iloc[0]
+	# point = data.iloc[0]
 	# min_dist = centroids.iloc[0] - point
+	return None
 
-# # clusters():	uses the K-Means clustering algorithm to identify clusters in 
-# #				the data set
-# # Parameters:	data: data set of points (DataFrame)
-# # 				k: number of clusters (int)
-# # Returns:	array of labels (numpy.ndarray) and an array of centroids 
-# # 			(numpy.ndarray)
-# def clusters(data, k):
-
+# clusters():	uses the K-Means clustering algorithm to identify clusters in 
+#				the data set
+# Parameters:	data: data set of points (DataFrame)
+# 				k: number of clusters (int)
+# Returns:	array of labels (numpy.ndarray) and an array of centroids 
+# 			(numpy.ndarray)
+def clusters(data, k):
+	return None
 
 
 def main():
 	file = "../iris-test.dat"
 	data = import_data(file)
 
-	print(find_centroids(data))
+	# print(find_centroids(data))
 	print(data)
-
+	print(type(data))
+	print(euclidean_dist(data.iloc[0],data.iloc[1]))
+	# a = data.iloc[0][0]
+	# print(a)
+	# print(a.iloc[0,1])
 
 main()
 
