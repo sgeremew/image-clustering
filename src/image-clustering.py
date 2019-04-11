@@ -30,7 +30,6 @@ def import_data(file):
 def find_centroids(data):
 	data = shuffle(data)
 	centroids = data.iloc[:K]
-	print(type(centroids))
 	return centroids
 
 
@@ -54,16 +53,18 @@ def euclidean_dist(p,q):
 def pairwise_minimums(data, centroids):
 
 	labels = []
-
+	# loops through the data points
 	for i in range(len(data)):
 		min_dist = euclidean_dist(data.iloc[i],centroids.iloc[0])
-		for c in centroids:
-			dist = euclidean_dist(data.iloc[i],c)
+		label = 1
+		# loops through the centroids
+		for j in range(len(centroids)):
+			dist = euclidean_dist(data.iloc[i],centroids.iloc[j])
+			# determines the minimum distance
 			if(dist < min_dist):
 				min_dist = dist
-				label = c
+				label = j+1
 		labels.append(label)
-
 
 	return labels
 
@@ -80,7 +81,10 @@ def clusters(data, k):
 def main():
 	file = "../iris-test.dat"
 	data = import_data(file)
-	print(len(data))
+	print(find_centroids(data))
+	print(pairwise_minimums(data, find_centroids(data)))
+
+	# find_centroids(data)
 
 	# print(find_centroids(data))
 	# print(data)
