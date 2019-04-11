@@ -50,6 +50,8 @@ def best_centroids(runs,data):
 
 	index = np.argmax(scores)
 
+	print(clist[0])
+
 	return clist[index]
 
 
@@ -90,10 +92,10 @@ def pairwise_minimums(data, centroids):
 
 def mean_of_points(data,labels):
 
-	data.to_numpy()
+	arr = data.to_numpy()
 	# for i in range(len(labels)):
 	for i in range(K):
-		centroids = np.array(data[labels == (i+1)].mean(0))
+		centroids = np.array(arr[labels == (i+1)].mean(0))
 	# centroids = np.array([data[labels == (i+1)].mean(0) \
  #                            for i in range(K)])
 	return centroids
@@ -129,8 +131,36 @@ def main():
 	data = import_data(file)
 
 	# clusters(data, K)
-	labels = pairwise_minimums(data, best_centroids(3,data))
-	mean_of_points(data,labels)
+	centers = best_centroids(3,data)
+	labels = pairwise_minimums(data, centers)
+	# mean_of_points(data,labels)
+	# print(labels)
+	a = data.to_numpy()
+
+	new_centers = []
+	labelx = []
+
+	for i in range(K):
+		for j in range(len(labels)):
+			if labels[j] == (i+1):
+				labelx.append(a[j])
+				# print(f'Index: {j}, Label: {labels[j]}')
+		print("NEXT---------")
+			
+		arr = np.asarray(labelx)		
+		# print(arr)
+		print(arr.mean(0))
+		mean = arr.mean(0)
+		# np.append(arr=new_centers,values=mean,axis=0)
+
+		new_centers.append(mean)
+		# print(f'Iteration {i}: {new_centers}')
+	# new_centers = np.asarray(new_centers)
+	print(f'New Centers: {new_centers}')
+	d = pd.DataFrame(data=new_centers)
+	print(type(d))
+	print(d)
+		# new_centers.append(np.asarray(labelx).mean(0))
 
 
 	# best_centroids(3,data)
