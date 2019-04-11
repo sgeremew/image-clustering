@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 import random
+import math
 from sklearn.utils import shuffle
 
 
@@ -35,15 +36,20 @@ def find_centroids(data):
 
 def euclidean_dist(p,q):
 
-
+	total = 0
+	for i in range(len(p)):
+		num = p.iloc[i] - q.iloc[i]
+		num = num*num
+		total = total + num
+	dist = math.sqrt(total)
 
 # pairwise_minimums():	finds the minimum distance of a point to a set of points
 # Parameters:	data: data set of points (DataFrame)
 # 				centroids: array of centroids (DataFrame)
 # Returns:	minimum: the centroid that was closest to data[i,:] (numpy.ndarray)
-def pairwise_minimums(data, centroids):
+# def pairwise_minimums(data, centroids):
 
-	point = data.iloc[0]
+# 	point = data.iloc[0]
 	# min_dist = centroids.iloc[0] - point
 
 # # clusters():	uses the K-Means clustering algorithm to identify clusters in 
