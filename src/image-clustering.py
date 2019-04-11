@@ -33,13 +33,18 @@ def find_centroids(data):
 	centroids = data.iloc[:K]
 	return centroids
 
+def euclidean_dist(p,q):
 
-# # pairwise_minimums():	finds the minimum distance of a point to a set of points
-# # Parameters:	data: data set of points (DataFrame)
-# # 				centroids: array of centroids (numpy.ndarray)
-# # Returns:	minimum: the centroid that was closest to data[i,:] (numpy.ndarray)
-# def pairwise_minimums(data, centroids):
 
+
+# pairwise_minimums():	finds the minimum distance of a point to a set of points
+# Parameters:	data: data set of points (DataFrame)
+# 				centroids: array of centroids (DataFrame)
+# Returns:	minimum: the centroid that was closest to data[i,:] (numpy.ndarray)
+def pairwise_minimums(data, centroids):
+
+	point = data.iloc[0]
+	# min_dist = centroids.iloc[0] - point
 
 # # clusters():	uses the K-Means clustering algorithm to identify clusters in 
 # #				the data set
@@ -55,8 +60,9 @@ def main():
 	file = "../iris-test.dat"
 	data = import_data(file)
 
-	# print(data)
 	print(find_centroids(data))
+	print(data)
+
 
 main()
 
